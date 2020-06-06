@@ -17,21 +17,11 @@ class PostsController extends Controller
 
     public function index()
     {
-        $posts = DB::select(
-            'SELECT
-                p.*,
-                u.name,
-                c.name AS categoryName
-            FROM
-                posts AS p
-                LEFT JOIN
-                    users AS u
-                ON
-                    p.user_id = u.id
-                LEFT JOIN
-                    categories AS c
-                ON
-                    p.category_id = c.id' );
+        $posts = DB::table('posts')
+                ->join('users', 'users.id', '=', 'posts.user_id')
+                ->join('categories', 'categories.id', '=', 'posts.category_id')
+                ->select('posts.*', 'users.name', 'categories.name AS categoryName')
+                ->get();
 
         return view('posts.index')->with('posts', $posts);
     }
@@ -154,5 +144,17 @@ class PostsController extends Controller
             Storage::delete('public/cover_images/'. $post->cover_image);
         }
         return redirect('posts')->with('success', 'Post deleted.');
+    }
+
+    public function postsByCategory($id)
+    {
+        $posts = DB::table('posts')
+                ->join('users', 'users.id', '=', 'posts.user_id')
+                ->join('categories', 'categories.id', '=', 'posts.category_id')
+                ->select('posts.*', 'users.name', 'categories.name AS categoryName')
+                ->where('category_id', $id)
+                ->get();
+
+        return view('posts.index', ['posts' => $posts]);
     }
 }

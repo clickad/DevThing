@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class PagesController extends Controller
 {
@@ -22,4 +23,5 @@ class PagesController extends Controller
         );
         return view('pages/skills')->with($data);
     }
+
 }
