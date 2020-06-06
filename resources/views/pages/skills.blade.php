@@ -1,12 +1,11 @@
 @extends('layouts.app')
-
 @section('content')
     <h1>{{$title}}</h1>
-    @if(count($services) > 0)
+    @if(count($skills) > 0)
     <ul>
-        @foreach($services as $service)
+        @foreach($skills as $skill)
             <li>
-                {{$service}}
+                {{$skill}}
             </li>
         @endforeach
     </ul>
