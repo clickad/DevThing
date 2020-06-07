@@ -97,7 +97,9 @@ class CategoriesController extends Controller
         $category = Category::find($id);
         $category->name = $request->input('name');
         $category->user_id = auth()->user()->id;
-        $category->cover_image = $fileNameToStore;
+        if($request->hasFile('cover_image')){
+            $category->cover_image = $fileNameToStore;
+        }
         $category->save();
 
         return redirect('categories')->with('success', 'Category updated.');
