@@ -28,7 +28,9 @@ class PostsController extends Controller
 
     public function create()
     {
-        $categories = Category::orderBy('created_at', 'desc')->get();
+        $categories = DB::table('categories')
+                    ->where('category_type', 1)
+                    ->get();
         $outputCategories = [];
         foreach($categories AS $category){
             $outputCategories[$category->id] = $category->name;
@@ -59,7 +61,7 @@ class PostsController extends Controller
             //uploada image
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            $fileNameToStore = 'noimage.png';
         }
 
         $post = new Post;
@@ -84,7 +86,10 @@ class PostsController extends Controller
 
         $post = Post::find($id);
 
-        $categories = Category::orderBy('created_at', 'desc')->get();
+        $categories = DB::table('categories')
+                    ->where('category_type', 1)
+                    ->get();
+
         $outputCategories = [];
         foreach($categories AS $category){
             $outputCategories[$category->id] = $category->name;
@@ -140,7 +145,7 @@ class PostsController extends Controller
             return redirect('/posts')->with('error','Unauthorized page.');
         }
         $post->delete();
-        if($post->cover_image != "noimage.jpg"){
+        if($post->cover_image != "noimage.png"){
             Storage::delete('public/cover_images/'. $post->cover_image);
         }
         return redirect('posts')->with('success', 'Post deleted.');

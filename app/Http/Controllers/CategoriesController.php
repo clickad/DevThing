@@ -22,13 +22,24 @@ class CategoriesController extends Controller
 
     public function create()
     {
-        return view('categories.create');
+        $categories = Category::orderBy('created_at', 'desc')
+                    ->where('category_type', 0)
+                    ->get();
+
+        $outputCategories = [];
+        foreach($categories AS $category){
+            $outputCategories[$category->id] = $category->name;
+        }
+        return view('categories.create', [
+            'categories' => $outputCategories
+            ]);
     }
 
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'type' => 'required'
         ]);
 
         //Handle file upload
@@ -44,15 +55,16 @@ class CategoriesController extends Controller
             //uploada image
             $path = $request->file('cover_image')->storeAs('public/category_images', $fileNameToStore);
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            $fileNameToStore = 'noimage.png';
         }
 
         $category = new Category;
         $category->name = $request->input('name');
         $category->user_id = auth()->user()->id;
-        if($request->hasFile('cover_image')){
-            $category->cover_image = $fileNameToStore;
-        }
+        $category->cover_image = $fileNameToStore;
+        $category->category_type = $request->input('type');
+        $category->parent_category = $category->category_type == 1 ? $request->input('category') : $category->parent_category = "";
+
         $category->save();
 
         return redirect('categories')->with('success', 'Category created.');
@@ -65,17 +77,28 @@ class CategoriesController extends Controller
 
     public function edit($id)
     {
+        $categories = Category::orderBy('created_at', 'asc')
+        ->where('category_type', 0)
+        ->get();
+
         $category = Category::find($id);
 
+        $outputCategories = [];
+        foreach($categories AS $cat){
+            $outputCategories[$cat->id] = $cat->name;
+        }
+
         return view('categories.edit',[
-            'category' => $category
+            'category' => $category,
+            'categories' => $outputCategories
         ]);
     }
 
     public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required'
+            'name' => 'required',
+            'type' => 'required'
         ]);
 
         //Handle file upload
@@ -91,7 +114,7 @@ class CategoriesController extends Controller
             //uploada image
             $path = $request->file('cover_image')->storeAs('public/category_images', $fileNameToStore);
         } else {
-            $fileNameToStore = 'noimage.jpg';
+            $fileNameToStore = 'noimage.png';
         }
 
         $category = Category::find($id);
@@ -100,6 +123,9 @@ class CategoriesController extends Controller
         if($request->hasFile('cover_image')){
             $category->cover_image = $fileNameToStore;
         }
+        $category->category_type = $request->input('type');
+        $category->parent_category = $category->category_type == 1 ? $request->input('category') : $category->parent_category = "";
+
         $category->save();
 
         return redirect('categories')->with('success', 'Category updated.');
@@ -112,7 +138,7 @@ class CategoriesController extends Controller
             return redirect('/categories')->with('error','Unauthorized page.');
         }
         $category->delete();
-        if($category->cover_image != "noimage.jpg"){
+        if($category->cover_image != "noimage.png"){
             Storage::delete('public/category_images/'. $category->cover_image);
         }
         return redirect('categories')->with('success', 'Category deleted.');

@@ -5,6 +5,9 @@
  */
 
 require('./bootstrap');
+require('./categoryCreateView');
+require('./textEditor');
+require('./submitNewPostForm');
 
 window.Vue = require('vue');
 

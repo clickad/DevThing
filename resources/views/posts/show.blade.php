@@ -2,11 +2,11 @@
 @section('content')
 <div class="row mb-2">
     <div class="col-md-12 text-center">
-        <a href="/posts" class="btn btn-default back-btn">Go back</a>
+        <button onclick="window.history.back()" class="btn btn-default back-btn">Go back</button>
         <h1>{{$post->title}}</h1>
     </div>
 </div>
-    @if($post->cover_image != 'noimage.jpg')
+    @if($post->cover_image != 'noimage.png')
         <div class="row mb-1">
             <div class="col-md-12 text-center">
                 <img src="/storage/cover_images/{{$post->cover_image}}" alt="" style="width:15%">
@@ -14,8 +14,8 @@
         </div>
     @endif
     <div class="row">
-        <div class="col-md-12 text-center mt-5">
-            <p>{{$post->body}}</p>
+        <div class="col-md-12 mt-5">
+            <p>{!!$post->body!!}</p>
         </div>
     </div>
     <hr>

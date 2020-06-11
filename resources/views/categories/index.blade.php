@@ -3,13 +3,9 @@
 
     <div class="row">
         <div class="col-md-6">
+            <button onclick="window.history.back()" class="btn btn-default back-btn">Go back</button>
             <h1>Categories</h1>
         </div>
-        @auth
-            <div class="col-md-6 text-right">
-                <a class="nav-link" href="/categories/create" class="btn btn-default">Add Category</a>
-            </div>
-        @endauth
     </div>
 
         <div class="card">

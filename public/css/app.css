@@ -10928,3 +10928,254 @@ a.text-dark:focus {
   }
 }
 
+.clickad-rtxte-wrapper {
+  border: 1px solid #eee;
+  box-shadow: 0px 0px 25px #ddd;
+  padding: 10px;
+}
+
+.clickad-rtxte-header {
+  padding: 5px 2px;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+}
+
+.clickad-rtxte-body {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.clickad-rtxte-body-a4 {
+  background-color: #eee;
+}
+
+.clickad-rtxte-body.clickad-rtxte-body-a4::after,
+.clickad-rtxte-body.clickad-rtxte-body-a4::before {
+  content: "";
+  padding: 5px;
+  display: block;
+}
+
+.clickad-rtxte-header-set {
+  display: inline-block;
+}
+
+.clickad-rtxte-header .clickad-rtxte-button {
+  padding: 8px;
+  transition: 0.3s;
+  -webkit-transition: 0.3s;
+  -ms-transition: 0.3s;
+  -moz-transition: 0.3s;
+  -o-transition: 0.3s;
+  border: 1px solid #eee;
+  background: whitesmoke;
+  margin: 2px;
+  position: relative;
+}
+
+.clickad-rtxte-header .clickad-rtxte-button:hover {
+  background: #dedede;
+}
+
+.clickad-rtxte-input {
+  display: block;
+  width: calc(100% - 42px);
+  height: 100%;
+  min-height: 300px;
+  margin: 0 auto;
+  border: 1px solid #eee;
+  padding: 20px;
+  font-family: Arial;
+  font-szie: 16px;
+  background-color: #fff;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.clickad-rtxte-page-a4 {
+  width: 21cm;
+  min-height: 29.7cm;
+  box-shadow: 0px 0px 15px #ddd;
+  padding: 80px;
+}
+
+.clickad-rtxte-input:focus,
+button:focus,
+select:focus,
+option:focus {
+  outline: none;
+}
+
+.clickad-rtxte-header button.clickad-rtxte-rotate-btn {
+  transform: rotate(180deg);
+}
+
+.clickad-rtxte-rotate {
+  transform: rotate(180deg);
+}
+
+.clickad-rtxte-option-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.clickad-rtxte-options {
+  max-height: 248px;
+  z-index: 1;
+  position: absolute;
+  overflow: hidden;
+  display: none;
+  padding: 3px 0;
+  background: whitesmoke;
+}
+
+.clickad-rtxte-options--pallet {
+  width: 181px;
+}
+
+.clickad-rtxte-options--pallet::after {
+  content: "";
+  padding: 3px;
+  display: block;
+  width: 100%;
+}
+
+.clickad-rtxte-option-font,
+.clickad-rtxte-font {
+  width: 198px;
+}
+
+#clickad-rtxte-font-size,
+#clickad-rtxte-heading {
+  width: 38px;
+}
+
+.clickad-rtxte-options-overflow {
+  overflow-y: auto;
+}
+
+.clickad-rtxte-options .clickad-rtxte-options__button {
+  width: 100%;
+  margin: 0;
+}
+
+.clickad-rtxte-options__button {
+  width: 100%;
+}
+
+span.clickad-rtxte-caret {
+  font-size: 8px;
+  padding: 3px;
+  position: absolute;
+  top: 13px;
+  right: 0px;
+  cursor: default;
+}
+
+.clickad-rtxte-font .clickad-rtxte-caret {
+  right: 5px;
+  top: 12px;
+}
+
+.clickad-rtxte-button {
+  display: inline-block;
+}
+
+.clickad-rtxte-color-pallet {
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  right: 5px;
+}
+
+.clickad-rtxte-color__choosen,
+.clickad-rtxte-background__choosen {
+  width: 10px;
+  height: 10px;
+  right: 5px;
+  display: inline-block;
+  margin: 0 7px;
+  padding: 0;
+  border: none;
+  position: absolute;
+  z-index: 1;
+  top: 16px;
+  left: 27px;
+}
+
+.clickad-rtxte-color__choosen {
+  background: #000;
+}
+
+.clickad-rtxte-background__choosen {
+  background: #fff;
+}
+
+.clickad-rtxte-options .clickad-rtxte-options--color {
+  display: inline-block;
+  width: auto;
+  margin: 0 2px;
+  border: 0.1px solid #999;
+}
+
+#clickad-rtxte-color,
+#clickad-rtxte-background {
+  width: 60px;
+}
+
+.oi-brush:before,
+.oi-spreadsheet:before {
+  margin-left: -20px;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .clickad-rtxte-input,
+  .clickad-rtxte-input * {
+    visibility: visible;
+    border: none;
+  }
+
+  .clickad-rtxte-input {
+    height: auto;
+    width: 100%;
+    max-height: 100%;
+    min-height: 0;
+    position: absolute;
+    left: 50%;
+    top: 20%;
+    transform: translate(-50%, -20%);
+    -webkit-print-color-adjust: exact;
+    box-shadow: none;
+  }
+
+@page {
+    size: A4;
+    margin: 0mm 20mm;
+}
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.category-item {
+  min-height: 105px;
+}
+
+.category-select {
+  display: none;
+}
+

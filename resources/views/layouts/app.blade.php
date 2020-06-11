@@ -16,9 +16,17 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+
+    <link href='https://fonts.googleapis.com/css?family=Aguafina Script' rel='stylesheet'>
+
+    <link id="external-css" rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/open-iconic/1.1.1/font/css/open-iconic-bootstrap.min.css" media="all">
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -42,13 +50,13 @@
                             <a class="nav-link" href="/home">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
+                            <a class="nav-link" href="/posts">Blog</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/skills">Skills</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/posts">Blog</a>
+                            <a class="nav-link" href="/about">About</a>
                         </li>
                         <!-- Authentication Links -->
                         @guest
@@ -69,6 +77,8 @@
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="/categories">Edit Categories</a>
                                     <a class="dropdown-item" href="/posts">Edit Posts</a>
+                                    <a class="dropdown-item" href="/categories/create">Add Category</a>
+                                    <a class="dropdown-item" href="/posts/create">Add Post</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
