@@ -2,7 +2,7 @@
 @section('content')
 <div class="row mb-2">
     <div class="col-md-12 text-center">
-        <button onclick="window.history.back()" class="btn btn-default back-btn">Go back</button>
+        <button onclick="window.history.back()" class="btn btn-default back-btn float-left">Go back</button>
         <h1>{{$post->title}}</h1>
     </div>
 </div>

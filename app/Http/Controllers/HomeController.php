@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Category;
+use DB;
 
 class HomeController extends Controller
 {
 
     public function index()
     {
-        $allCategories = Category::all();
+        $allCategories = DB::table('categories')
+                        ->select('*')
+                        ->orderBy('created_at', 'asc')->get();
         $categories = [];
 
         foreach($allCategories AS $key => $pCategory){

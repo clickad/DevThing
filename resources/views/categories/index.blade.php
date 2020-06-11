@@ -2,8 +2,8 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6">
-            <button onclick="window.history.back()" class="btn btn-default back-btn">Go back</button>
+        <div class="col-md-12 text-center">
+            <button onclick="window.history.back()" class="btn btn-default back-btn float-left">Go back</button>
             <h1>Categories</h1>
         </div>
     </div>
@@ -13,14 +13,14 @@
                 <ul class="list-group list-group-flush">
                     @foreach($categories as $category)
                         <li class="list-group-item">
-                            <div class="row">
+                            <div class="row align-items-center">
                                 <div class="col-md-4">
                                     <img src="/storage/category_images/{{$category->cover_image}}" alt="" style="width:20%">
                                 </div>
-                                <div class="col-md-4 text-center flex-center">
+                                <div class="col-md-4 text-center">
                                     <h4>{{$category->name}}</h4>
                                 </div>
-                                <div class="col-md-4 text-right flex-center">
+                                <div class="col-md-4 text-right">
 
                                     <a href="/categories/{{$category->id}}/edit" class="btn btn-default">Edit</a>
                                     <div class="d-inline-block">

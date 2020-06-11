@@ -1,8 +1,8 @@
 @extends('layouts.app')
 @section('content')
     <div class="row">
-        <div class="col-md-6">
-            <button onclick="window.history.back()" class="btn btn-default back-btn">Go back</button>
+        <div class="col-md-12 text-center">
+            <button onclick="window.history.back()" class="btn btn-default back-btn float-left">Go back</button>
             <h1>Posts</h1>
         </div>
     </div>
@@ -12,11 +12,11 @@
                 @foreach($posts as $post)
                     <li class="list-group-item">
                         <div class="row align-items-center">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <img src="/storage/cover_images/{{$post->cover_image}}" alt="" style="width:20%">
                             </div>
-                            <div class="col-md-4">
-                                <h3><a href="/posts/{{$post->id}}">{{$post->title}}</a></h3>
+                            <div class="col-md-6">
+                                <h4><a href="/posts/{{$post->id}}">{{$post->title}}</a></h4 >
                                 <small>
                                     Written on {{$post->created_at}}
                                     <br>
@@ -25,7 +25,7 @@
                                 </small>
                             </div>
                             @auth
-                                <div class="col-md-4 text-right">
+                                <div class="col-md-3 text-right">
                                     <a href="/posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
                                     <div class="d-inline-block">
                                         {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST']) !!}
