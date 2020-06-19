@@ -75,10 +75,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="/categories">Edit Categories</a>
-                                    <a class="dropdown-item" href="/posts">Edit Posts</a>
                                     <a class="dropdown-item" href="/categories/create">Add Category</a>
                                     <a class="dropdown-item" href="/posts/create">Add Post</a>
+                                    <a class="dropdown-item" href="/categories">Edit Categories</a>
+                                    <a class="dropdown-item" href="/posts">Edit Posts</a>
+                                    <a class="dropdown-item" href="/todo/create">Add Todo</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

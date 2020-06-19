@@ -33,7 +33,6 @@ class HomeController extends Controller
             }
         }
 
-        //return var_dump(json_decode(json_encode($categories), true)); die;
         return view('home', [
             'categories' => json_decode(json_encode($categories), true)
         ]);

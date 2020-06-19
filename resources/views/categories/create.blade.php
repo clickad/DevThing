@@ -17,8 +17,9 @@
             {{Form::label('name', 'Name')}}
             {{Form::text('name', '', ['class' => 'form-control', 'placeholder' => 'Name'])}}
         </div>
-        <div class="form-group">
-            {{Form::file('cover_image')}}
+        <div class="custom-file mb-3">
+            <input type="file" name="cover_image" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
         <button type="button" onclick="window.history.back()" class="btn btn-default back-btn">Cancel</button>

@@ -8,6 +8,7 @@ require('./bootstrap');
 require('./categoryCreateView');
 require('./textEditor');
 require('./submitNewPostForm');
+require('./uploadFile');
 
 window.Vue = require('vue');
 

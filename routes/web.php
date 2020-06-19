@@ -27,6 +27,8 @@ Route::resource('posts', 'PostsController');
 
 Route::resource('categories', 'CategoriesController');
 
+Route::resource('todo', 'TodoController');
+
 Route::get('posts/category/{category_id}', 'PostsController@postsByCategory');
 
 Auth::routes();

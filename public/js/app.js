@@ -49689,6 +49689,8 @@ __webpack_require__(/*! ./textEditor */ "./resources/js/textEditor.js");
 
 __webpack_require__(/*! ./submitNewPostForm */ "./resources/js/submitNewPostForm.js");
 
+__webpack_require__(/*! ./uploadFile */ "./resources/js/uploadFile.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -51699,6 +51701,23 @@ $(document).ready(function () {
     app.init();
   });
 })();
+
+/***/ }),
+
+/***/ "./resources/js/uploadFile.js":
+/*!************************************!*\
+  !*** ./resources/js/uploadFile.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  // The name of the file appear on select
+  $(".custom-file-input").on("change", function () {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+});
 
 /***/ }),
 
