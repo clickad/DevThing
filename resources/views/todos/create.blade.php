@@ -26,6 +26,6 @@
             <label class="custom-file-label" for="customFile">Choose file</label>
         </div> --}}
         <button type="submit" class="btn btn-primary">Submit</button>
-        <button type="button" onclick="window.history.back()" class="btn btn-default back-btn">Cancel</button>
+        <button type="button" onclick="window.history.back()" class="btn btn-default cancel-btn">Cancel</button>
     {!! Form::close() !!}
 @endsection

@@ -1,12 +1,16 @@
 @extends('layouts.app')
 @section('content')
-    <div class="row">
-        <div class="col-md-12 text-center">
-            <button onclick="window.history.back()" class="btn btn-default back-btn float-left">Go back</button>
-            <h1>Posts</h1>
-        </div>
-    </div>
     <div class="card">
+        <div class="card-header text-center bg-secondary text-white">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <button onclick="window.history.back()" class="btn btn-default back-btn">
+                        <span class="oi oi-chevron-left text-white"></span>
+                    </button>
+                    <h4 class="mb-0">Posts</h4>
+                </div>
+            </div>
+        </div>
         @if(count($posts) > 0)
             <ul class="list-group list-group-flush">
                 @foreach($posts as $post)
@@ -26,11 +30,22 @@
                             </div>
                             @auth
                                 <div class="col-md-3 text-right">
-                                    <a href="/posts/{{$post->id}}/edit" class="btn btn-default">Edit</a>
+                                    <a href="/posts/{{$post->id}}/edit" class="btn btn-default">
+                                        <span class="oi oi-pencil"></span>
+                                    </a>
                                     <div class="d-inline-block">
-                                        {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST']) !!}
+                                        {!! Form::open(['action' => ['PostsController@destroy', $post->id], 'method' => 'POST', 'id'=>'del-post']) !!}
                                             {{Form::hidden('_method','DELETE')}}
-                                            {{Form::submit('Delete', ['class' => 'btn btn-default'])}}
+                                            {{Form::button(
+                                                '<span class="oi oi-trash"></span>',
+                                                [
+                                                    'type' => 'button',
+                                                    'class' => 'btn btn-default',
+                                                    'data-toggle'=>'modal',
+                                                    'data-target'=>'#confirmModal',
+                                                    'data-type'=>'post'
+                                                ]
+                                            )}}
                                         {!! Form::close() !!}
                                     </div>
                                 </div>
@@ -41,7 +56,7 @@
             </ul>
         @else
             <div class="row">
-                <div class="col-md-12 text-center">
+                <div class="col-md-12 text-center pt-2 pb-2">
                     <div>There are no Posts for this Category.</div>
                 </div>
             </div>

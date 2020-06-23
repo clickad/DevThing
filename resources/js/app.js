@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./deleteConfirmation');
 require('./categoryCreateView');
 require('./textEditor');
 require('./submitNewPostForm');

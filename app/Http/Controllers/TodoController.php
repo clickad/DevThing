@@ -12,14 +12,14 @@ class TodoController extends Controller
     public function index()
     {
         $todos = DB::table('todos')
-                ->orderBy('date', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->get();
 
                 $todos = DB::table('todos')
                 ->join('users', 'users.id', '=', 'todos.user_id')
                 ->select('todos.*', 'users.name')
                 ->get();
-        return view('todo.index', [
+        return view('todos.index', [
             'todos' => $todos
         ]);
     }
@@ -33,7 +33,7 @@ class TodoController extends Controller
         foreach($categories AS $category){
             $outputCategories[$category->id] = $category->name;
         }
-        return view('todo.create', [
+        return view('todos.create', [
             'categories' => $outputCategories
         ]);
     }
@@ -45,12 +45,10 @@ class TodoController extends Controller
             'description' => 'required'
         ]);
         $todo = new Todo;
-        $todo->date = date("m/d/Y");
         $todo->title = $request->input('title');
         $todo->description = $request->input('description');
         $todo->status = 0;
         $todo->user_id = auth()->user()->id;
-        //return $todo;
         $todo->save();
         return redirect('todo');
     }
@@ -58,23 +56,53 @@ class TodoController extends Controller
     public function show($id)
     {
         $todo = Todo::find($id);
-        return view('todo.show', [
+        return view('todos.show', [
             'todo' => $todo
         ]);
     }
 
     public function edit($id)
     {
-        //
+        $todo = Todo::find($id);
+
+        if(auth()->user()->id !== $todo->user_id){
+            return redirect('todo')->with('error','Unauthorized page.');
+        }
+
+        return view('todos.edit', [
+            'todo' => $todo
+        ]);
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+        $todo = Todo::find($id);
+        $todo->title = $request->input('title');
+        $todo->description = $request->input('description');
+        $todo->save();
+        return redirect('todo')->with('success', 'Todo updated.');
     }
 
     public function destroy($id)
     {
-        //
+        $todo = Todo::find($id);
+        if(auth()->user()->id !== $todo->user_id){
+            return redirect('todo')->with('error','Unauthorized page.');
+        }
+        $todo->delete();
+        return redirect('todo')->with('success', 'Todo deleted.');
     }
+
+    public function changeStatus($id, $status)
+    {
+        $todo = Todo::find($id);
+        $todo->status = $status;
+        $todo->save();
+        return redirect('todo');
+    }
+
 }

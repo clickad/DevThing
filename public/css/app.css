@@ -11183,3 +11183,14 @@ span.clickad-rtxte-caret {
   font-size: 18px;
 }
 
+.back-btn {
+  position: absolute;
+  left: 3px;
+  top: -5px;
+}
+
+.oi-check {
+  position: absolute;
+  right: 6px;
+}
+

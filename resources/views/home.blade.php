@@ -7,7 +7,7 @@
             @if(count($categories) > 0)
                 @foreach($categories as $category)
                     <div class="card mb-5">
-                        <div class="card-header text-center">
+                        <div class="card-header text-center bg-secondary text-white">
                             <span class="category-name">{{$category['name']}}</span>
                         </div>
                         <div class="card-body">
@@ -16,7 +16,7 @@
                                     {{ session('status') }}
                                 </div>
                             @endif
-                            <div class="row">
+                            <div class="row justify-content-center">
                                 @if(count($category['subCategories']) > 0)
                                     @foreach($category['subCategories'] as $sCategory)
                                         <div class="col-md-3 flex-center mt-3">

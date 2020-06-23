@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index');
 
-Route::get('/about', 'PagesController@about');
+//Route::get('/about', 'PagesController@about');
 
 Route::get('/skills', 'PagesController@skills');
 
@@ -29,8 +29,7 @@ Route::resource('categories', 'CategoriesController');
 
 Route::resource('todo', 'TodoController');
 
+
+//custom
 Route::get('posts/category/{category_id}', 'PostsController@postsByCategory');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::put('todo/complete/{id}{status}', 'TodoController@changeStatus');

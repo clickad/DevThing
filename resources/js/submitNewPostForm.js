@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    console.log($('#hidden-body-input'));
     let bodyInput = $('#hidden-body-input').val();
     if(bodyInput != ""){
         $('#clickad-rtxte-input').html(bodyInput);

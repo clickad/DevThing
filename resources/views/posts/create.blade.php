@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Create Post</h1>
+    <h1>Create new Post</h1>
     {!! Form::open(['action' => 'PostsController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data', 'id' => 'newPostForm']) !!}
         <div class="form-group">
             {{Form::label('title', 'TItle')}}
@@ -25,6 +25,6 @@
             <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         <button type="button" class="btn btn-primary" id="new-post-submit">Submit</button>
-        <button type="button" onclick="window.history.back()" class="btn btn-default back-btn">Cancel</button>
+        <button type="button" onclick="window.history.back()" class="btn btn-default cancel-btn">Cancel</button>
     {!! Form::close() !!}
 @endsection

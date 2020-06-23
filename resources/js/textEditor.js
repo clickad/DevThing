@@ -4,7 +4,7 @@
 		init: function(){
 			/*if(this.detectIE()){
 				alert("This app is not supported by Internet Explorer!");
-			}*/
+            }*/
 			this.data = {
 				template :[
 				"<div class = 'clickad-rtxte-wrapper'>",

@@ -56,7 +56,7 @@
                             <a class="nav-link" href="/skills">Skills</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/about">About</a>
+                            <a class="nav-link" href="/todo">Todos</a>
                         </li>
                         <!-- Authentication Links -->
                         @guest
@@ -99,6 +99,7 @@
 
         <main class="py-4 container">
             @include('inc.messages')
+            @include('inc.confirm')
             @yield('content')
         </main>
     </div>

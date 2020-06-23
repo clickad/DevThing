@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <h1>Create Category</h1>
+    <h1>Create new Category</h1>
     {!! Form::open(['action' => 'CategoriesController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         <div class="form-check form-check-inline">
             {{Form::radio('type', 0, false, ['class' => 'form-check-input category-type', 'id' => 'parent'])}}
@@ -22,6 +22,6 @@
             <label class="custom-file-label" for="customFile">Choose file</label>
         </div>
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
-        <button type="button" onclick="window.history.back()" class="btn btn-default back-btn">Cancel</button>
+        <button type="button" onclick="window.history.back()" class="btn btn-default cancel-btn">Cancel</button>
     {!! Form::close() !!}
 @endsection

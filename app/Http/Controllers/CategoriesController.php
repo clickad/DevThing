@@ -16,7 +16,30 @@ class CategoriesController extends Controller
 
     public function index()
     {
-        $categories = Category::all();
+        $allCategories = Category::orderBy('created_at','asc')
+                    ->get();
+
+        $categories = [];
+
+        foreach($allCategories AS $key => $pCategory){
+            if($pCategory->category_type == 0){
+                $categories[$key]['id'] = $pCategory->id;
+                $categories[$key]['name'] = $pCategory->name;
+                $categories[$key]['cover_image'] = $pCategory->cover_image;
+                foreach($allCategories AS $sCategory){
+                    if($sCategory->category_type == 1 && $sCategory->parent_category == $pCategory->id){
+                        $categories[$key]['subCategories'][] = $sCategory;
+                    }
+                }
+            }
+        }
+
+        foreach($categories AS &$cat){
+            if(!array_key_exists('subCategories', $cat)){
+                $cat['subCategories'] = [];
+            }
+        }
+        //return $categories;
         return view('categories.index', ['categories' => $categories]);
     }
 

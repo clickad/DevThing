@@ -49683,6 +49683,8 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./deleteConfirmation */ "./resources/js/deleteConfirmation.js");
+
 __webpack_require__(/*! ./categoryCreateView */ "./resources/js/categoryCreateView.js");
 
 __webpack_require__(/*! ./textEditor */ "./resources/js/textEditor.js");
@@ -49848,6 +49850,29 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/deleteConfirmation.js":
+/*!********************************************!*\
+  !*** ./resources/js/deleteConfirmation.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('#confirmModal').on('show.bs.modal', function (e) {
+    var button = $(e.relatedTarget);
+    var delBtn = $('#del-btn');
+    var form = button[0].parentNode;
+    var span = $('#type-text');
+    var type = button.data('type') == 'parentcat' ? 'category' : button.data('type');
+    span.text(type);
+    delBtn.on('click', function () {
+      form.submit();
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/submitNewPostForm.js":
 /*!*******************************************!*\
   !*** ./resources/js/submitNewPostForm.js ***!
@@ -49856,7 +49881,6 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  console.log($('#hidden-body-input'));
   var bodyInput = $('#hidden-body-input').val();
 
   if (bodyInput != "") {
@@ -49886,7 +49910,7 @@ $(document).ready(function () {
     init: function init() {
       /*if(this.detectIE()){
       	alert("This app is not supported by Internet Explorer!");
-      }*/
+               }*/
       this.data = {
         template: ["<div class = 'clickad-rtxte-wrapper'>", "<div class = 'clickad-rtxte-header'>", "<div class = 'clickad-rtxte-header-set'>", "</div>", "<div class = 'clickad-rtxte-option-wrapper'>", "</div>", "<div class = 'clickad-rtxte-option-wrapper'>", "</div>", "<div class = 'clickad-rtxte-option-wrapper'>", "<button type='button' class='clickad-rtxte-color__choosen' data-type = 'currentColor' title = 'font color'></button>", "</div>", "<div class = 'clickad-rtxte-option-wrapper'>", "<button type='button' class='clickad-rtxte-background__choosen' data-type = 'currentBackground' title = 'background color'></button>", "</div>", "<div class = 'clickad-rtxte-option-wrapper'>", "</div>", "</div>", "<div class = 'clickad-rtxte-body'>", "<div class = 'clickad-rtxte-input' contenteditable = 'true' id = 'clickad-rtxte-input'>", "</div>", "</div>", "</div>"],
         "buttons": [{

@@ -23,6 +23,6 @@
         </div>
         {{Form::hidden('_method','PUT')}}
         {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
-        <button type="button" onclick="window.history.back()" class="btn btn-default back-btn">Cancel</button>
+        <button type="button" onclick="window.history.back()" class="btn btn-default cancel-btn">Cancel</button>
     {!! Form::close() !!}
 @endsection

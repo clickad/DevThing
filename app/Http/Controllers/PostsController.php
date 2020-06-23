@@ -21,6 +21,9 @@ class PostsController extends Controller
                 ->join('users', 'users.id', '=', 'posts.user_id')
                 ->join('categories', 'categories.id', '=', 'posts.category_id')
                 ->select('posts.*', 'users.name', 'categories.name AS categoryName')
+                ->orderBy('categories.parent_category','asc')
+                ->orderBy('categories.id','asc')
+                ->orderBy('posts.created_at','desc')
                 ->get();
 
         return view('posts.index')->with('posts', $posts);
@@ -85,7 +88,6 @@ class PostsController extends Controller
     {
 
         $post = Post::find($id);
-
         $categories = DB::table('categories')
                     ->where('category_type', 1)
                     ->get();
