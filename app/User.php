@@ -48,4 +48,12 @@ class User extends Authenticatable
     public function todos(){
         return $this->hasMany('App\Todos');
     }
+
+    public function skills(){
+        return $this->hasMany('App\Skills');
+    }
+
+    public function termins(){
+        return $this->hasMany('App\Termins');
+    }
 }

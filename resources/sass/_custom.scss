@@ -32,3 +32,24 @@
     position: absolute;
     right: 6px;
 }
+
+.pagination {
+    margin-top: 15px;
+    justify-content: center;
+}
+
+.edit-form{
+    display: none;
+}
+
+.appointment-btn-wrapper {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0;
+}
+
+.clickad-dpck-day-td:hover .appointment-btn-wrapper{
+    opacity: 1;
+}

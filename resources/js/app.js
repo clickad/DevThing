@@ -10,6 +10,10 @@ require('./categoryCreateView');
 require('./textEditor');
 require('./submitNewPostForm');
 require('./uploadFile');
+require('./editSkill');
+require('./calendar');
+require('./appointmentModal');
+
 
 window.Vue = require('vue');
 

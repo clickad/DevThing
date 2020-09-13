@@ -44,7 +44,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <ul class="list-group list-group-flush">
+                            <ul class="list-group list-group-flush text-dark">
                                 @foreach($category['subCategories'] as $cat)
                                     <li class="list-group-item">
                                         <div class="row align-items-center">

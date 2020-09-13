@@ -24,7 +24,7 @@ class PostsController extends Controller
                 ->orderBy('categories.parent_category','asc')
                 ->orderBy('categories.id','asc')
                 ->orderBy('posts.created_at','desc')
-                ->get();
+                ->simplePaginate(10);
 
         return view('posts.index')->with('posts', $posts);
     }
@@ -160,8 +160,27 @@ class PostsController extends Controller
                 ->join('categories', 'categories.id', '=', 'posts.category_id')
                 ->select('posts.*', 'users.name', 'categories.name AS categoryName')
                 ->where('category_id', $id)
-                ->get();
+                ->simplePaginate(10);
 
         return view('posts.index', ['posts' => $posts]);
+    }
+
+    public function searchPost(Request $request)
+    {
+        $text = $request->input('text');
+
+        //var_dump($request); die;
+
+        $posts = DB::table('posts')
+                ->join('users', 'users.id', '=', 'posts.user_id')
+                ->join('categories', 'categories.id', '=', 'posts.category_id')
+                ->select('posts.*', 'users.name', 'categories.name AS categoryName')
+                ->where('title', 'LIKE', '%'.$text.'%')
+                ->orderBy('categories.parent_category','asc')
+                ->orderBy('categories.id','asc')
+                ->orderBy('posts.created_at','desc')
+                ->simplePaginate(10);
+
+        return view('posts.search', ['posts' => $posts]);
     }
 }

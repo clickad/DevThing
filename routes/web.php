@@ -29,7 +29,13 @@ Route::resource('categories', 'CategoriesController');
 
 Route::resource('todo', 'TodoController');
 
+Route::resource('skills', 'SkillsController');
+
+Route::resource('calendar', 'CalendarController');
+
 
 //custom
 Route::get('posts/category/{category_id}', 'PostsController@postsByCategory');
+Route::post('posts/search', 'PostsController@searchPost');
 Route::put('todo/complete/{id}{status}', 'TodoController@changeStatus');
+Route::post('calendar/getApointments', 'CalendarController@getApointments');

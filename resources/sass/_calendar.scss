@@ -1,0 +1,200 @@
+#clickad-dpck{
+    width: 100%;
+}
+
+.clickad-dpck-container {
+    display: flex;
+    display: -webkit-flex;
+    justify-content: center;
+    -webkit-justify-content: center
+}
+
+input:focus,
+button:focus{
+	outline: none;
+}
+
+.clickad-dpck-wrapper{
+	position: relative;
+}
+
+.clickad-dpck-input{
+	position: relative;
+	display: inline-block;
+}
+
+span.clickad-dpck-c-icon{
+	font-size: 14px;
+    top: 4px;
+	cursor: default;
+	color: #1ca9c9;
+	position: absolute;
+	right: 1px;
+}
+
+.clickad-dpck-picker {
+    // width: 280px;
+    height: auto;
+    border: 1px solid #eee;
+	z-index: 999999;
+	// display: none;
+	box-shadow: 0px 0px 25px -4px #ddd;
+	//position: absolute;
+	border-radius: 3px;
+}
+
+.clickad-dpck-header{
+	text-align: center;
+    background-color: #1ca9c9;
+	font-size: 18px;
+    font-weight: bold;
+	color: #fff;
+	border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+	display: flex;
+	display: -webkit-flex;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+.clickad-dpck-header-title{
+    width: 150px;
+    margin: 0 auto;
+	cursor: pointer;
+	padding: 5px 0;
+	border: 1px solid transparent;
+}
+
+.clickad-dpck-header .oi{
+	color: #fff;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 8px 10px;
+	top: 0;
+	z-index: 1;
+	border: 1px solid transparent;
+	transition: .2s;
+	background: transparent;
+}
+
+.clickad-dpck-header .oi-caret-left{
+	border-top-left-radius: 3px;
+}
+
+.clickad-dpck-header .oi-caret-right{
+	border-top-right-radius: 3px;
+}
+
+.clickad-dpck-header .oi:hover,
+.clickad-dpck-header-title:hover{
+	border: 1px solid #1090b0;
+	background: #1090b0;
+}
+
+.clickad-dpck-body{
+	position: relative;
+}
+
+.clickad-dpck-days{
+	padding: 0 2px;
+}
+
+.clickad-dpck-table{
+	width: 100%;
+	text-align: center;
+}
+
+.clickad-dpck-table thead{
+	font-weight: bold;
+}
+
+.clickad-dpck-table thead tr td{
+	padding: 5px 0;
+    color: #163859;
+    border: 1px solid #ddd;
+}
+
+.clickad-dpck-day-td{
+	background-color: #f2f6f9;
+	cursor: pointer;
+	padding: 5px 0;
+    transition: .2s;
+    height: 150px;
+    width: 150px;
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.month-day{
+    position: absolute;
+    top: 3px;
+    left: 5px;
+}
+
+.clickad-dpck-day-td:hover{
+	background-color: #dceef0;
+}
+
+td.clickad-dpck-selected{
+	background-color: #1ca9c9;
+	color: #fff;
+}
+
+.clickad-dpck-years{
+	width: 100%;
+	display: flex;
+    flex-wrap: wrap;
+    -webkit-display: flex;
+    -webkit-flex-wrap: wrap;
+	height: 100%;
+	display: none;
+	position: absolute;
+    z-index: 1;
+	background-color: #fff;
+}
+
+.clickad-dpck-years .oi{
+	position: absolute;
+	background-color: transparent;
+	border: none;
+    top: 80px;
+	font-size: 26px;
+	color: #1ca9c9;
+	cursor: pointer;
+	transition: all .2s ease-in-out;
+}
+
+.clickad-dpck-years .oi:hover{
+	-ms-transform: scale(1.5, 1.5);
+	-moz-transform: scale(1.5, 1.5);
+	-o-transform: scale(1.5, 1.5);
+    -webkit-transform: scale(1.5, 1.5);
+    transform: scale(1.5, 1.5);
+}
+
+.clickad-dpck-years .oi-caret-left{
+	left: -16px;
+}
+.clickad-dpck-years .oi-caret-right{
+	right: -16px;
+}
+
+.clickad-dpck-year-button{
+	background-color: #0996b6;
+    color: #fff;
+    margin: 0;
+    padding: 5px 7px;
+    border: 1px solid #eee;
+    width: 69.5px;
+	cursor: pointer;
+	font-size: 16px;
+}
+
+.clickad-dpck-year-button:hover{
+	background: #0080a0;
+}
+
+.clickad-dpck-current-day {
+    border-bottom: 1px solid #1ca9c9;
+	background-color: #e3e7ea;
+}

@@ -42,6 +42,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            {!! Form::open(['action' => 'PostsController@searchPost', 'method' => 'POST', 'class' => 'form-inline']) !!}
+                                <div class="form-group">
+                                    {{Form::text('text', '', ['class' => 'form-control', 'placeholder' => 'Search'])}}
+                                    <button type="submit" class="btn btn-primary">Search</button>
+                                </div>
+                            {!! Form::close() !!}
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -57,6 +65,9 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/todo">Todos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/calendar">Calendar</a>
                         </li>
                         <!-- Authentication Links -->
                         @guest
@@ -80,6 +91,7 @@
                                     <a class="dropdown-item" href="/categories">Edit Categories</a>
                                     <a class="dropdown-item" href="/posts">Edit Posts</a>
                                     <a class="dropdown-item" href="/todo/create">Add Todo</a>
+                                    <a class="dropdown-item" href="/skills/create">Add Skill</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -100,6 +112,7 @@
         <main class="py-4 container">
             @include('inc.messages')
             @include('inc.confirm')
+            @include('inc.calendarpopup')
             @yield('content')
         </main>
     </div>
