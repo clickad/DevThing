@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
 
+    public function __construct()
+    {
+        // $this->middleware('auth', ['except' => ['index', 'show', 'postsByCategory']]);
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $allCategories = DB::table('categories')

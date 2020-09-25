@@ -113,6 +113,7 @@
             @include('inc.messages')
             @include('inc.confirm')
             @include('inc.calendarpopup')
+            @include('inc.appointmentedit')
             @yield('content')
         </main>
     </div>

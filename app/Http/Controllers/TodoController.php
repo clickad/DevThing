@@ -9,6 +9,12 @@ use App\Todo;
 class TodoController extends Controller
 {
 
+    public function __construct()
+    {
+        // $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $todos = DB::table('todos')

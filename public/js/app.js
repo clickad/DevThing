@@ -49737,6 +49737,22 @@ $(document).ready(function () {
     var date = button.data('date');
     dateInput.val(date);
   });
+  $('#appointmentEditModal').on('show.bs.modal', function (e) {
+    var button = $(e.relatedTarget);
+    var form = $("#appointmentEditForm");
+    var hours = $('#hoursInput');
+    var minutes = $('#minutesInput');
+    var description = $('#descriptionInput');
+    var id = button.data('id');
+    var time = button.data('time');
+    var h = time == null ? "" : time.split(":")[0];
+    var m = time == null ? "" : time.split(":")[1];
+    var desc = button.data('description');
+    hours.val(h);
+    minutes.val(m);
+    description.val(desc);
+    form.attr("action", "calendar/" + id);
+  });
 });
 
 /***/ }),
@@ -49922,155 +49938,62 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
     getDaysInMonth: function getDaysInMonth(month, year) {
       return new Date(year, month + 1, 0).getDate();
     },
+    renderAppointment: function renderAppointment(i, num, month, year, appointments) {
+      var d = (month < 10 ? "0" + month : month) + "-" + (i < 10 ? "0" + i : i) + "-" + year;
+      var token = $('meta[name="csrf-token"]').attr('content');
+      var isAppointment = false;
+      console.log(appointments);
+      var appointment = {};
+      appointments.forEach(function (a) {
+        if (a.date == d) {
+          isAppointment = true;
+          appointment = a;
+        }
+      });
+      isAppointment == true ? $(this.$tableBodyDay[num]).append("<td class = 'clickad-dpck-day-td'>\n                       <span class='month-day'>".concat(i, "</span>\n                       <div class=\"d-flex flex-column\">\n                            ").concat(appointment.time == null || appointment.time == "" ? "" : "<span class='oi oi-clock'></span><span class='font-weight-bold'> " + appointment.time + "</span>", "\n                            <span>").concat(appointment.description, "</span>\n                       </div>\n                       <div class=\"d-inline-block\">\n                           <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                               <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                               <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                               <div class=\"appointment-btn-wrapper\">\n                                    <button type='button'\n                                        class='btn btn-default appointment-btn'\n                                        data-toggle='modal'\n                                        data-target='#confirmModal'\n                                        data-type='Appointment'>\n                                        <span class=\"oi oi-trash\"></span>\n                                    </button>\n                                    <button type='button'\n                                        class='btn btn-default appointment-btn'\n                                        data-toggle='modal'\n                                        data-target='#appointmentEditModal'\n                                        data-id=").concat(appointment.id, "\n                                        data-time=").concat(appointment.time, "\n                                        data-description=").concat(appointment.description, ">\n                                        <span class=\"oi oi-pencil\"></span>\n                                    </button>\n                                </div>\n                           </form>\n                       </div>\n                   </td>")) : $(this.$tableBodyDay[num]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=\"".concat(d, "\">\n                        <span class='month-day'>").concat(i, "</span>\n                        <span class=\"oi oi-plus add-appointment-icon\"></span>\n                    </td>"));
+    },
     getDays: function getDays(month, year, appointments) {
-      var _this = this;
-
       var mNum = this.getDaysInMonth(month, year);
       var d = new Date(year, month, '01');
       var startDay = d.getDay();
-      var token = $('meta[name="csrf-token"]').attr('content');
       this.$tableBodyDay.html("");
 
       for (var i = 0; i <= startDay - 1; i++) {
         $(this.$tableBodyDay[0]).append("<td class = 'clickad-dpck-disabled'></td>");
       }
 
-      var _loop = function _loop(_i) {
-        var d = (month < 10 ? "0" + month : month) + "-" + (_i < 10 ? "0" + _i : _i) + "-" + year;
-        var isAppointment = false;
-        var appointment = {};
-        appointments.forEach(function (a) {
-          if (a.date == d) {
-            isAppointment = true;
-            appointment = a;
-          }
-        });
-        isAppointment == true ? $(_this.$tableBodyDay[0]).append("<td class = 'clickad-dpck-day-td'>\n                           <span class='month-day'>" + _i + "</span>\n                           <span>".concat(appointment.description, "</span>\n                           <div class=\"d-inline-block\">\n                               <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                   <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                   <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                   <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                               </form>\n                           </div>\n                       </td>") : $(_this.$tableBodyDay[0]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i + "</span></td>");
-      };
-
       for (var _i = 1; _i <= 7 - startDay; _i++) {
-        _loop(_i);
+        this.renderAppointment(_i, 0, month, year, appointments);
       }
-
-      var _loop2 = function _loop2(_i2) {
-        var d = (month < 10 ? "0" + month : month) + "-" + (_i2 < 10 ? "0" + _i2 : _i2) + "-" + year;
-        var isAppointment = false;
-        var appointment = {};
-        appointments.forEach(function (a) {
-          if (a.date == d) {
-            isAppointment = true;
-            appointment = a;
-          }
-        });
-        isAppointment == true ? $(_this.$tableBodyDay[1]).append("<td class = 'clickad-dpck-day-td'>\n                            <span class='month-day'>" + _i2 + "</span>\n                            <span>".concat(appointment.description, "</span>\n                            <div class=\"d-inline-block\">\n                                <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                    <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                    <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                    <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                                </form>\n                            </div>\n                        </td>") : $(_this.$tableBodyDay[1]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i2 + "</span></td>");
-      };
 
       for (var _i2 = 8 - startDay; _i2 <= 14 - startDay; _i2++) {
-        _loop2(_i2);
+        this.renderAppointment(_i2, 1, month, year, appointments);
       }
-
-      var _loop3 = function _loop3(_i3) {
-        var d = (month < 10 ? "0" + month : month) + "-" + (_i3 < 10 ? "0" + _i3 : _i3) + "-" + year;
-        var isAppointment = false;
-        var appointment = {};
-        appointments.forEach(function (a) {
-          if (a.date == d) {
-            isAppointment = true;
-            appointment = a;
-          }
-        });
-        isAppointment == true ? $(_this.$tableBodyDay[2]).append("<td class = 'clickad-dpck-day-td'>\n                            <span class='month-day'>" + _i3 + "</span>\n                            <span>".concat(appointment.description, "</span>\n                            <div class=\"d-inline-block\">\n                                <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                    <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                    <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                    <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                                </form>\n                            </div>\n                        </td>") : $(_this.$tableBodyDay[2]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i3 + "</span></td>");
-      };
 
       for (var _i3 = 15 - startDay; _i3 <= 21 - startDay; _i3++) {
-        _loop3(_i3);
+        this.renderAppointment(_i3, 2, month, year, appointments);
       }
 
-      var _loop4 = function _loop4(_i4) {
-        var d = (month < 10 ? "0" + month : month) + "-" + (_i4 < 10 ? "0" + _i4 : _i4) + "-" + year;
-        var isAppointment = false;
-        var appointment = {};
-        appointments.forEach(function (a) {
-          if (a.date == d) {
-            isAppointment = true;
-            appointment = a;
-          }
-        });
-        isAppointment == true ? $(_this.$tableBodyDay[3]).append("<td class = 'clickad-dpck-day-td'>\n                           <span class='month-day'>" + _i4 + "</span>\n                           <span>".concat(appointment.description, "</span>\n                           <div class=\"d-inline-block\">\n                               <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                   <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                   <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                   <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                               </form>\n                           </div>\n                       </td>") : $(_this.$tableBodyDay[3]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i4 + "</span></td>");
-      };
-
       for (var _i4 = 22 - startDay; _i4 <= 28 - startDay; _i4++) {
-        _loop4(_i4);
+        this.renderAppointment(_i4, 3, month, year, appointments);
       }
 
       if (startDay === 5 && mNum === 31 || startDay === 6 && mNum === 30) {
-        var _loop5 = function _loop5(_i5) {
-          var d = (month < 10 ? "0" + month : month) + "-" + (_i5 < 10 ? "0" + _i5 : _i5) + "-" + year;
-          var isAppointment = false;
-          var appointment = {};
-          appointments.forEach(function (a) {
-            if (a.date == d) {
-              isAppointment = true;
-              appointment = a;
-            }
-          });
-          isAppointment == true ? $(_this.$tableBodyDay[4]).append("<td class = 'clickad-dpck-day-td'>\n                           <span class='month-day'>" + _i5 + "</span>\n                           <span>".concat(appointment.description, "</span>\n                           <div class=\"d-inline-block\">\n                               <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                   <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                   <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                   <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                               </form>\n                           </div>\n                       </td>") : $(_this.$tableBodyDay[4]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i5 + "</span></td>");
-        };
-
         for (var _i5 = 29 - startDay; _i5 <= mNum - 1; _i5++) {
-          _loop5(_i5);
+          this.renderAppointment(_i5, 4, month, year, appointments);
         }
       } else if (startDay === 6 && mNum === 31) {
-        var _loop6 = function _loop6(_i6) {
-          var d = (month < 10 ? "0" + month : month) + "-" + (_i6 < 10 ? "0" + _i6 : _i6) + "-" + year;
-          var isAppointment = false;
-          var appointment = {};
-          appointments.forEach(function (a) {
-            if (a.date == d) {
-              isAppointment = true;
-              appointment = a;
-            }
-          });
-          isAppointment == true ? $(_this.$tableBodyDay[4]).append("<td class = 'clickad-dpck-day-td'>\n                           <span class='month-day'>" + _i6 + "</span>\n                           <span>".concat(appointment.description, "</span>\n                           <div class=\"d-inline-block\">\n                               <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                   <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                   <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                   <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                               </form>\n                           </div>\n                       </td>") : $(_this.$tableBodyDay[4]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i6 + "</span></td>");
-        };
-
         for (var _i6 = 29 - startDay; _i6 <= mNum - 2; _i6++) {
-          _loop6(_i6);
+          this.renderAppointment(_i6, 4, month, year, appointments);
         }
       } else {
-        var _loop7 = function _loop7(_i7) {
-          var d = (month < 10 ? "0" + month : month) + "-" + (_i7 < 10 ? "0" + _i7 : _i7) + "-" + year;
-          var isAppointment = false;
-          var appointment = {};
-          appointments.forEach(function (a) {
-            if (a.date == d) {
-              isAppointment = true;
-              appointment = a;
-            }
-          });
-          isAppointment == true ? $(_this.$tableBodyDay[4]).append("<td class = 'clickad-dpck-day-td'>\n                           <span class='month-day'>" + _i7 + "</span>\n                           <span>".concat(appointment.description, "</span>\n                           <div class=\"d-inline-block\">\n                               <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                   <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                   <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                   <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                               </form>\n                           </div>\n                       </td>") : $(_this.$tableBodyDay[4]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i7 + "</span></td>");
-        };
-
         for (var _i7 = 29 - startDay; _i7 <= mNum; _i7++) {
-          _loop7(_i7);
+          this.renderAppointment(_i7, 4, month, year, appointments);
         }
       }
 
-      var _loop8 = function _loop8(_i8) {
-        var d = (month < 10 ? "0" + month : month) + "-" + (_i8 < 10 ? "0" + _i8 : _i8) + "-" + year;
-        var isAppointment = false;
-        var appointment = {};
-        appointments.forEach(function (a) {
-          if (a.date == d) {
-            isAppointment = true;
-            appointment = a;
-          }
-        });
-        isAppointment == true ? $(_this.$tableBodyDay[5]).append("<td class = 'clickad-dpck-day-td'>\n                           <span class='month-day'>" + _i8 + "</span>\n                           <span>".concat(appointment.description, "</span>\n                           <div class=\"d-inline-block\">\n                               <form action = \"calendar/").concat(appointment.id, "\" method = 'POST'>\n                                   <input type=\"hidden\" name=\"_token\" value=\"").concat(token, "\">\n                                   <input type=\"hidden\" name=\"_method\" value=\"DELETE\" />\n                                   <div class=\"appointment-btn-wrapper\">\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#confirmModal'\n                                            data-type='Appointment'>\n                                            <span class=\"oi oi-trash\"></span>\n                                        </button>\n                                        <button type='button'\n                                            class='btn btn-default appointment-btn'\n                                            data-toggle='modal'\n                                            data-target='#calendarModal'\n                                            data-date=") + d + ">\n                                            <span class=\"oi oi-pencil\"></span>\n                                        </button>\n                                    </div>\n                               </form>\n                           </div>\n                       </td>") : $(_this.$tableBodyDay[5]).append("<td class = 'clickad-dpck-day-td' data-toggle='modal' data-target='#calendarModal' data-date=" + d + "><span class='month-day'>" + _i8 + "</span></td>");
-      };
-
       for (var _i8 = 36 - startDay; _i8 <= mNum; _i8++) {
-        _loop8(_i8);
+        this.renderAppointment(_i8, 5, month, year, appointments);
       }
     },
     getYears: function getYears(type) {
@@ -50088,19 +50011,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
       if (this.page === pages) {
         for (var i = this.minYear + 28 * this.start; i <= this.minYear + 28 * this.start + left; i++) {
-          this.$yearsList.append("<button class = 'clickad-dpck-year-button'>" + i + "</button>");
+          this.$yearsList.append("<button class = 'clickad-dpck-year-button'>".concat(i, "</button>"));
         }
       } else {
         for (var _i9 = this.minYear + 28 * this.start; _i9 <= this.minYear + 28 * this.page - 1; _i9++) {
-          this.$yearsList.append("<button class = 'clickad-dpck-year-button'>" + _i9 + "</button>");
+          this.$yearsList.append("<button class = 'clickad-dpck-year-button'>".concat(_i9, "</button>"));
         }
       }
 
       $(".clickad-dpck-year-button").on("click", this.changeYear.bind(this));
     },
     pickDate: function pickDate(event) {
-      $(".clickad-dpck-day td").removeClass("clickad-dpck-selected");
-      $(event.target).addClass("clickad-dpck-selected");
+      //$(".clickad-dpck-day td").removeClass("clickad-dpck-selected");
+      //$(event.target).addClass("clickad-dpck-selected");
       var m = parseInt(this.$monthValue.val()) + 1;
       var y = parseInt(this.$yearValue.val());
       var d = parseInt($(event.target).text());

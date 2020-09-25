@@ -11406,7 +11406,20 @@ td.clickad-dpck-selected {
   opacity: 0;
 }
 
-.clickad-dpck-day-td:hover .appointment-btn-wrapper {
+.add-appointment-icon {
+  opacity: 0;
+}
+
+.clickad-dpck-day-td:hover .appointment-btn-wrapper,
+.clickad-dpck-day-td:hover .add-appointment-icon {
   opacity: 1;
+}
+
+.oi {
+  color: #666;
+}
+
+.oi:hover {
+  color: #444;
 }
 

@@ -9,10 +9,11 @@ use App\Termin;
 class CalendarController extends Controller
 {
 
-    // public function __construct()
-    // {
-    //     $this->middleware('auth', ['except' => ['index', 'show']]);
-    // }
+    public function __construct()
+    {
+        // $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -41,14 +42,24 @@ class CalendarController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request,[
-            'description' => 'required'
-        ]);
+
+        if($request->input('hours') != null || $request->input('minutes') != null){
+            $this->validate($request,[
+                'description' => 'required',
+                'hours' => 'required',
+                'minutes' => 'required'
+            ]);
+        } else {
+            $this->validate($request,[
+                'description' => 'required'
+            ]);
+        }
 
         $termin = new Termin;
         $termin->user_id = auth()->user()->id;
         $termin->date = $request->input('date');
-        $termin->time = $request->input('time');
+        $termin->time = $request->input('hours').":".$request->input('minutes');
+        $termin->time = $termin->time == " : " ? null : $termin->time;
         $termin->description = $request->input('description');
         $termin->save();
         return redirect('calendar')->with('success', 'Termin created.');
@@ -85,7 +96,26 @@ class CalendarController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $appointment = Termin::find($id);
+
+        if($request->input('hours') != null || $request->input('minutes') != null){
+            $this->validate($request,[
+                'description' => 'required',
+                'hours' => 'required',
+                'minutes' => 'required'
+            ]);
+        } else {
+            $this->validate($request,[
+                'description' => 'required'
+            ]);
+        }
+
+        $appointment->time = $request->input('hours').":".$request->input('minutes');
+        $appointment->time = $appointment->time == ":" ? null : $appointment->time;
+        $appointment->description = $request->input('description');
+        $appointment->save();
+        return redirect('calendar')->with('success', 'Termin updated.');
     }
 
     /**
